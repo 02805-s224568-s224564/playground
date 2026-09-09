@@ -46,6 +46,12 @@ defaults:
       type: posts
     values:
       layout: post
+  # Interactive figures are standalone HTML files under assets/figures/. They
+  # are served, but they are not pages, so keep them out of the sitemap.
+  - scope:
+      path: "assets/figures"
+    values:
+      sitemap: false
 
 # Excerpts on the home page stop at the first blank line unless a post sets
 # its own `excerpt`.
@@ -59,6 +65,9 @@ exclude:
   - notebooks/
   - data/
   - scripts/
+  - marvel/
+  - tests/
+  - pytest.ini
   - requirements.txt
   - README.md
   - LICENSE

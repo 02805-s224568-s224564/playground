@@ -1,0 +1,19 @@
+{%- comment -%}
+MathJax 3. kramdown (math_engine: mathjax in _config.yml) turns $$...$$ into
+\(...\) inline and \[...\] on its own line, which MathJax renders by default.
+A single-dollar $...$ passes through kramdown untouched, so it is registered
+here as an inline delimiter too. Write \$ for a literal dollar sign.
+{%- endcomment -%}
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [["$", "$"], ["\\(", "\\)"]],
+      displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>

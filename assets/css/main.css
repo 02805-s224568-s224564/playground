@@ -329,6 +329,21 @@ a:hover {
   max-width: var(--measure);
 }
 
+/* Interactive figures (plotly) are standalone HTML files shown in an iframe;
+   see _includes/interactive.html. */
+.figure iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: var(--bg-raised);
+}
+
+.figure__open {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+}
+
 /* Code and tables scroll inside themselves rather than widening the page. */
 code,
 pre,

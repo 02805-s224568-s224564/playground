@@ -1,0 +1,26 @@
+{%- comment -%}
+Embeds an interactive figure (plotly) saved as a standalone HTML file.
+
+    {% include interactive.html
+       src="/assets/figures/week2-degree-explorer.html"
+       alt="Interactive degree distribution; hover a point for the character"
+       caption="Hover a point to see who it is."
+       height=480
+       wide=true %}
+
+marvel.figures.save_figure() writes the file and prints this snippet for you.
+The iframe src goes through relative_url for the same reason figure.html's img
+does: the site lives under /playground. `alt` becomes the iframe's title, which
+is what a screen reader announces, so write a real one. Plotly.js loads from its
+CDN inside the frame, so the figure is blank while offline.
+{%- endcomment -%}
+<figure class="figure figure--interactive{% if include.wide %} figure--wide{% endif %}">
+  <iframe src="{{ include.src | relative_url }}"
+          title="{{ include.alt | default: '' | escape }}"
+          loading="lazy"
+          style="height: {{ include.height | default: 480 }}px"></iframe>
+  <p class="figure__open"><a href="{{ include.src | relative_url }}">Open the figure full screen</a></p>
+  {%- if include.caption %}
+  <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}</figcaption>
+  {%- endif %}
+</figure>
