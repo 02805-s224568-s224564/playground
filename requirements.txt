@@ -1,0 +1,18 @@
+# Python environment for the weekly network analyses.
+# Install with scripts/dev-setup.sh, or see the README for the manual steps.
+#
+# Requires Python 3.12 or newer (scipy 1.18 dropped 3.11).
+#
+# The "~=" pins mean "this minor or newer, but not the next major", which keeps
+# both of us on the same major versions without a lockfile. If plots ever start
+# differing between machines, freeze exact versions with:
+#     pip freeze > requirements.lock.txt
+
+networkx~=3.6       # graph construction and algorithms
+scipy~=1.18         # not required by networkx, but its sparse matrices back
+                    # spectra, several centralities and community algorithms
+pandas~=3.0         # tabular wrangling of node/edge attributes
+matplotlib~=3.11    # figures, saved into assets/figures/
+requests~=2.34      # fetching from the Wikipedia API
+jupyterlab~=4.6     # the notebook environment itself
+nbstripout~=0.9     # strips notebook outputs on commit, see .gitattributes

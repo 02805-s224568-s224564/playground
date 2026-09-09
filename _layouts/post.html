@@ -1,0 +1,40 @@
+---
+layout: default
+---
+<article class="prose">
+  <header class="post-header">
+    {%- if page.week %}<p class="post-week">Week {{ page.week }}</p>{% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%-d %B %Y" }}
+      </time>
+      {%- if page.authors %} &middot; {{ page.authors | join: ", " }}{% endif -%}
+    </p>
+    {%- if page.notebook %}
+    <p class="post-notebook">
+      Analysis notebook:
+      <a href="https://github.com/{{ site.repository }}/blob/main/{{ page.notebook }}"><code>{{ page.notebook }}</code></a>
+    </p>
+    {%- endif %}
+  </header>
+
+  {{ content }}
+</article>
+
+{%- if page.previous or page.next %}
+<nav class="post-nav" aria-label="Other posts">
+  {%- if page.next %}
+  <a class="post-nav__link post-nav__link--prev" href="{{ page.next.url | relative_url }}">
+    <span class="post-nav__dir">&larr; Newer</span>
+    <span class="post-nav__title">{{ page.next.title }}</span>
+  </a>
+  {%- endif %}
+  {%- if page.previous %}
+  <a class="post-nav__link post-nav__link--next" href="{{ page.previous.url | relative_url }}">
+    <span class="post-nav__dir">Older &rarr;</span>
+    <span class="post-nav__title">{{ page.previous.title }}</span>
+  </a>
+  {%- endif %}
+</nav>
+{%- endif %}

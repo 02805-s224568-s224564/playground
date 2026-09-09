@@ -1,0 +1,20 @@
+# Normalise line endings so the Windows and macOS members don't produce diffs
+# that are nothing but CRLF churn.
+* text=auto eol=lf
+
+# Strip notebook outputs on the way into git. Without this, two people running
+# the same notebook produce different outputs and every merge conflicts.
+#
+# IMPORTANT: this file alone is not enough. The `nbstripout` filter itself is
+# defined in .git/config, which is not cloned. Each member must run
+# `scripts/dev-setup.sh` (or `nbstripout --install --attributes .gitattributes`)
+# once per clone, otherwise git quietly ignores the filter below.
+*.ipynb filter=nbstripout
+*.ipynb diff=ipynb
+
+# Figures are binary; never try to merge or diff them as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary

@@ -1,0 +1,90 @@
+name: Build and deploy site
+
+# Builds the site ourselves and uploads it to Pages, rather than letting Pages
+# run its own restricted Jekyll build. That is what frees us from the
+# Pages-whitelisted plugin list — any gem in the Gemfile works here.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue them instead of cancelling, so a rebuild
+# triggered mid-deploy still ends up published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version   # same version as local dev
+          bundler-cache: true           # bundle install + cache gems
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      # base_path comes from the Pages config, so the site keeps building with
+      # the right URLs even if the repository is renamed.
+      - name: Build with Jekyll
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site/
+
+  deploy:
+    name: Deploy to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  # Independent of the deploy: catches the case where someone commits a
+  # notebook before running scripts/dev-setup.sh, which is exactly how
+  # notebook merge conflicts start.
+  notebooks:
+    name: Check notebooks are stripped
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install nbstripout
+        run: pip install --quiet nbstripout
+
+      - name: Verify no notebook has committed outputs
+        run: |
+          mapfile -t notebooks < <(git ls-files '*.ipynb')
+          if [ ${#notebooks[@]} -eq 0 ]; then
+            echo "No notebooks committed yet — nothing to check."
+            exit 0
+          fi
+          printf 'Checking %d notebook(s)\n' "${#notebooks[@]}"
+          if ! nbstripout --verify "${notebooks[@]}"; then
+            echo "::error::A committed notebook still has outputs. Run scripts/dev-setup.sh, then re-commit the notebook."
+            exit 1
+          fi

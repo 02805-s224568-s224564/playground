@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {%- seo -%}
+  {%- feed_meta -%}
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="{{ '/' | relative_url }}">
+        <span class="wordmark__six">6</span>
+        <span class="wordmark__text">{{ site.title }}</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="{{ '/' | relative_url }}">Posts</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="site-footer__group">
+        {% for member in site.group -%}
+          {%- if member.github -%}
+            <a href="https://github.com/{{ member.github }}">{{ member.name }}</a>
+          {%- else -%}
+            {{ member.name }}
+          {%- endif -%}
+          {%- unless forloop.last %} &middot; {% endunless -%}
+        {%- endfor %}
+      </p>
+      <p class="site-footer__meta">
+        {{ site.course.code }} {{ site.course.name }} &middot; {{ site.course.university }}
+        &middot; <a href="https://github.com/{{ site.repository }}">Source on GitHub</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

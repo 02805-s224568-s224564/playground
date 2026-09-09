@@ -1,0 +1,67 @@
+# --- Identity ---------------------------------------------------------------
+title: Six Degrees of Marvel
+tagline: Ten weeks inside the Marvel Wikipedia graph
+description: >-
+  Weekly network analysis of the Marvel universe, built on Wikipedia data,
+  by a group taking 02805 Social Graphs and Interactions at DTU.
+
+course:
+  code: "02805"
+  name: Social Graphs and Interactions
+  university: Technical University of Denmark
+
+# Rendered in the footer and on the About page. Add or remove people here and
+# both places update — no need to touch any layout.
+group:
+  - name: Johan Holmsteen
+    github: Holmst33n
+  - name: Joes Hasselriis Nicolaisen
+    github: Jossemand
+
+# --- URLs -------------------------------------------------------------------
+# This is a *project* Pages site, so everything is served under /playground.
+# CI overrides baseurl from the configure-pages action, so if the repo is ever
+# renamed, only this line needs updating (and only for local previews).
+url: https://02805-s224568-s224564.github.io
+baseurl: /playground
+repository: 02805-s224568-s224564/playground
+
+permalink: /:year/:month/:day/:title/
+
+# --- Build ------------------------------------------------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# Excerpts on the home page stop at the first blank line unless a post sets
+# its own `excerpt`.
+excerpt_separator: "\n\n"
+
+# Keep the analysis side of the repo out of the published site. Jekyll appends
+# its own defaults (Gemfile, vendor/, caches) to this list rather than
+# replacing them, and anything starting with "." or "_" is already ignored,
+# so .github/ and .claude/ need no entry here.
+exclude:
+  - notebooks/
+  - data/
+  - scripts/
+  - requirements.txt
+  - README.md
+  - LICENSE
+  - .venv/
+  - venv/
+  - "*.ipynb"

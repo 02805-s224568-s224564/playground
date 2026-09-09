@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1 class="hero__title">{{ site.title }}</h1>
+  <p class="hero__tagline">{{ site.tagline }}</p>
+  {%- if content != "" %}
+  <div class="hero__intro prose">
+    {{ content }}
+  </div>
+  {%- endif %}
+</section>
+
+<section class="posts" aria-labelledby="posts-heading">
+  <h2 id="posts-heading" class="posts__heading">Weekly analyses</h2>
+
+  {%- if site.posts.size == 0 %}
+  <p class="posts__empty">
+    No posts yet — week 1 lands here as soon as the first analysis is written.
+  </p>
+  {%- else %}
+  <ol class="post-list" reversed>
+    {%- for post in site.posts %}
+    <li class="post-list__item">
+      <article>
+        <h3 class="post-list__title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+        <p class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%-d %B %Y" }}
+          </time>
+          {%- if post.week %} &middot; Week {{ post.week }}{% endif -%}
+          {%- if post.authors %} &middot; {{ post.authors | join: ", " }}{% endif -%}
+        </p>
+        {%- if post.excerpt %}
+        <div class="post-list__excerpt">{{ post.excerpt | strip_html | truncatewords: 45 }}</div>
+        {%- endif %}
+        <a class="post-list__more" href="{{ post.url | relative_url }}">Read the analysis &rarr;</a>
+      </article>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- endif %}
+</section>

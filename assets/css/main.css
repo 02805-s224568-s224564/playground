@@ -1,0 +1,469 @@
+/* Six Degrees of Marvel — hand-written stylesheet, no theme gem.
+   Everything visual lives in this one file. Colours are declared once as
+   custom properties on :root and swapped wholesale for dark mode. */
+
+:root {
+  --measure: 68ch;
+  --wide: 60rem;
+
+  --bg: #fbfaf8;
+  --bg-raised: #ffffff;
+  --ink: #1b1c20;
+  --ink-soft: #55585f;
+  --ink-faint: #83878f;
+  --rule: #e3e0da;
+  --accent: #c0341c;
+  --accent-ink: #ffffff;
+  --link: #9b2a16;
+
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --step: 1.6rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b;
+    --bg-raised: #1c1f26;
+    --ink: #e9e8e4;
+    --ink-soft: #a9adb6;
+    --ink-faint: #7e838d;
+    --rule: #2c3038;
+    --accent: #ef5b41;
+    --accent-ink: #14161b;
+    --link: #f08066;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wide);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+main.wrap {
+  flex: 1 0 auto;
+  padding-block: 3rem 4rem;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 0.9rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* --- Header ------------------------------------------------------------- */
+
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-raised);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-block: 1rem;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.wordmark__six {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+/* --- Home --------------------------------------------------------------- */
+
+.hero {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero__title {
+  font-size: clamp(2.1rem, 6vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem;
+}
+
+.hero__tagline {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  color: var(--ink-soft);
+}
+
+.hero__intro {
+  margin-top: 1.75rem;
+}
+
+.posts__heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  margin: 0 0 1.5rem;
+}
+
+.posts__empty {
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: var(--measure);
+}
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list__item + .post-list__item {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.post-list__title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.35rem;
+}
+
+.post-list__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.post-list__title a:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.post-list__excerpt {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+}
+
+.post-list__more {
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.post-list__more:hover {
+  text-decoration: underline;
+}
+
+/* --- Post and page ------------------------------------------------------ */
+
+.post-meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+}
+
+.post-header {
+  margin-bottom: 2.5rem;
+}
+
+.post-week {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.post-title,
+.page-title {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.6rem;
+}
+
+.post-notebook {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  margin-top: var(--step);
+  margin-bottom: 0.6rem;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose blockquote {
+  margin: var(--step) 0;
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--ink-soft);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Figures may break past the text measure — network diagrams need the room. */
+.figure {
+  margin: var(--step) 0;
+  max-width: 100%;
+}
+
+.figure--wide {
+  max-width: var(--wide);
+  width: 100%;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: var(--bg-raised);
+}
+
+.figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  max-width: var(--measure);
+}
+
+/* Code and tables scroll inside themselves rather than widening the page. */
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg-raised);
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+  margin: var(--step) 0;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.prose th {
+  font-weight: 600;
+  border-bottom-width: 2px;
+}
+
+/* --- Post navigation ---------------------------------------------------- */
+
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.post-nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-decoration: none;
+  max-width: 20rem;
+}
+
+.post-nav__link--next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.post-nav__dir {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+.post-nav__title {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.post-nav__link:hover .post-nav__title {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+.site-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--rule);
+  background: var(--bg-raised);
+  padding-block: 1.75rem;
+  font-size: 0.9rem;
+}
+
+.site-footer__group {
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+}
+
+.site-footer__meta {
+  margin: 0;
+  color: var(--ink-faint);
+}
+
+/* --- Group list on the About page --------------------------------------- */
+
+.group-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.group-list li {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg-raised);
+}
+
+.group-list__name {
+  font-weight: 600;
+}
+
+.group-list__handle {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}

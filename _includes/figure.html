@@ -1,0 +1,25 @@
+{%- comment -%}
+Renders a figure with a caption.
+
+    {% include figure.html
+       src="/assets/figures/week1-degree-distribution.png"
+       alt="Log-log degree distribution of the Marvel character graph"
+       caption="Degree distribution, log-log axes. The tail is heavier than a Poisson graph of the same density."
+       wide=true %}
+
+Use this instead of writing Markdown images by hand. The site is served under
+/playground, so a bare `![](/assets/figures/x.png)` resolves to the wrong URL
+and 404s in production while still working locally. Passing `src` through
+`relative_url` here is what prevents that.
+
+`wide=true` lets the figure break past the text measure — useful for network
+diagrams and wide multi-panel plots.
+{%- endcomment -%}
+<figure class="figure{% if include.wide %} figure--wide{% endif %}">
+  <img src="{{ include.src | relative_url }}"
+       alt="{{ include.alt | default: '' | escape }}"
+       loading="lazy">
+  {%- if include.caption %}
+  <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}</figcaption>
+  {%- endif %}
+</figure>
