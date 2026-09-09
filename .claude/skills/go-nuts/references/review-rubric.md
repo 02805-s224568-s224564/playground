@@ -25,7 +25,7 @@ One PASS or FAIL per line, with a word on why for each FAIL:
 
 - Uses this week's tools or ideas (from the brief).
 - Four parts in order after the lede: what we asked, what we did, one figure or table, what surprised us.
-- Exactly one figure or table. It has alt text and a caption, and it is embedded with the include, not with markdown image syntax.
+- At most two figures or tables, and the prose reads every one of them. Figures have alt text and a caption, and are embedded with the include, not with markdown image syntax.
 - "What surprised us" has substance; it is not the finding restated.
 - Every number in the post appears in the notebook. Open the notebook and check.
 - `notebook:` in the front matter points at an existing file; `week` matches the filename and the brief.

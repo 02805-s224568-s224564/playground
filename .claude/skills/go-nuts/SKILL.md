@@ -64,7 +64,7 @@ Repo state right now:
 ## Hard rules
 
 - Never invent a finding, a number or an interpretation. Everything comes from the notebook or the user.
-- Never pad. Four sections, one figure or table, 300 to 600 words.
+- Never pad. Four sections, one or two figures or tables, 300 to 600 words.
 - Figures only through `figure.html` or `interactive.html` includes, never markdown images: the site lives under `/playground`.
 - No `layout:` in post front matter; `_config.yml` sets it.
 - Never overwrite an existing notebook or post. The scripts refuse; do not work around them.

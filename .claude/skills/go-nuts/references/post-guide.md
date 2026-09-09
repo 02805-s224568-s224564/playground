@@ -25,7 +25,7 @@ notebook: notebooks/week1-centrality.ipynb
 1. **Lede paragraph.** The question and the short answer in one or two sentences. It becomes the front-page excerpt (first 45 words, HTML stripped), so it must stand alone: no figure, no include, no heading before it.
 2. `## What we asked` — two to four sentences. The question, and why this week's tools fit it.
 3. `## What we did` — the method in words. Name the measure, the choices (directed or undirected, weighted or not, which subset), the counts. No code unless the code is the point.
-4. `## What we found` — exactly one figure or one table, with one or two sentences reading it.
+4. `## What we found` — a figure or a table, two at the outside, each with one or two sentences reading it. The post is short: an exhibit the prose never reads is padding, so cut it.
 5. `## What surprised us` — the one thing the group did not expect and what they make of it. "Nothing, and here is why" is allowed.
 
 300 to 600 words. No headings beyond these four. A question makes the best title.
