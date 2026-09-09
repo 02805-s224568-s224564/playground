@@ -5,6 +5,8 @@ at DTU. Every week we publish one post analysing the shared Marvel/Wikipedia
 network. The website and the notebooks that produce its figures live in this one
 repository.
 
+**Live site: <https://02805-s224568-s224564.github.io/playground/>**
+
 Group: Johan Holmsteen ([@Holmst33n](https://github.com/Holmst33n)) and
 Joes Hasselriis Nicolaisen ([@Jossemand](https://github.com/Jossemand)).
 
